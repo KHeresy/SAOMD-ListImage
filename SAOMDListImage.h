@@ -13,7 +13,6 @@ public:
 private:
 	bool processFile(const QString& sFilename);
 	void loadFiles(const QStringList& aFileList);
-	void updateLayout();
 
 private:
 	void dragEnterEvent(QDragEnterEvent* pEvent) override;
@@ -22,6 +21,7 @@ private:
 private slots:
 	void slotLoad();
 	void slotSave();
+	void updateLayout();
 
 private:
 	Ui::SAOMDListImageClass ui;

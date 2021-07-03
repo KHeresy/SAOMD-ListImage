@@ -129,7 +129,6 @@ void SAOMDListImage::loadFiles(const QStringList & aFileList)
 		processFile(sFile);
 	}
 	updateLayout();
-
 }
 
 #pragma region slot functions
@@ -238,11 +237,21 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 
 void SAOMDListImage::updateLayout()
 {
+	int iCol = ui.hsColumnNum->value();
+	int iBorder = ui.hsItemBorder->value();
 	auto vItems = ui.graphicsView->scene()->items();
-	int x = 0;
+
+	int x = 0, y = 0, num = 0;
 	for (auto& pItem : vItems)
 	{
-		pItem->setPos(x, 0);
-		x += pItem->boundingRect().width();
+		pItem->setPos(x, y);
+		x += (iBorder + pItem->boundingRect().width() );
+
+		if (++num > iCol)
+		{
+			num = 0;
+			x = 0;
+			y += (pItem->boundingRect().height() + iBorder);
+		}
 	}
 }
