@@ -239,7 +239,7 @@ void SAOMDListImage::updateLayout()
 {
 	int iCol = ui.hsColumnNum->value();
 	int iBorder = ui.hsItemBorder->value();
-	auto vItems = ui.graphicsView->scene()->items();
+	auto vItems = ui.graphicsView->scene()->items(Qt::AscendingOrder);
 
 	int x = 0, y = 0, num = 0;
 	for (auto& pItem : vItems)
@@ -254,4 +254,6 @@ void SAOMDListImage::updateLayout()
 			y += (pItem->boundingRect().height() + iBorder);
 		}
 	}
+
+	ui.graphicsView->fitInView(ui.graphicsView->scene()->itemsBoundingRect(),Qt::KeepAspectRatio);
 }
