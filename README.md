@@ -8,6 +8,10 @@
 
 ![image](Doc/main.png)
 
+## 使用環境
+- Windows 10 x64 2004+
+- 需安裝 [Microsoft Visual C++ Redistributable for Visual Studio 2019](https://aka.ms/vs/16/release/vc_redist.x64.exe)
+
 ## 開發環境
 - [Microsoft Visual Studio 2019](https://visualstudio.microsoft.com/zh-hant/vs/)
 - [Qt 6.1.1](https://www.qt.io/)
