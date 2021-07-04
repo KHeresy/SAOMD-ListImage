@@ -152,13 +152,10 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 	{
 		qImage = qImage.convertedTo(QImage::Format_ARGB32);
 
-		int iLeft = 0, iRight = 0, iTop = 0, iBottom = 0;
+		int iLeft = 0, iTop = 0;
 		QColor mBGColorBase;
 
-		//TODO: debug only
-		QRgb* pImageData1 = (QRgb*)(qImage.bits());
-
-		// detect left and top
+		// detect background color
 		const QRgb* pImageData = (const QRgb*)(qImage.constBits());
 		int m = qImage.height() / 2,
 			w = qImage.width();
@@ -172,19 +169,6 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 				iLeft = x + 2;
 				mBGColorBase = QColor::fromRgba(pImageData[iShift + iLeft]).toHsl();
 				auto l1 = mBGColorBase.lightness();
-
-				// find top
-				for (int y = m - 1; y > 0; --y)
-				{
-					mColor = QColor::fromRgba(pImageData[y * w + iLeft]).toHsl();
-					auto l2 = mColor.lightness();
-
-					if (abs(l2 - l1) > 10)
-					{
-						iTop = y + 2;
-						break;
-					}
-				}
 				break;
 			}
 		}
@@ -197,7 +181,7 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 			{
 				qRange.setTop(rowRect.bottom() + 2);
 
-				if (rowRect.height() > 10)
+				if (rowRect.height() > 50)
 				{
 					while (true)
 					{
@@ -206,10 +190,13 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 						{
 							rowRect.setLeft(rowBox.right() + 2);
 
-							float fRatio = (float)rowBox.height() / rowBox.width();
-							if (fRatio > 1.1f && fRatio < 1.2f)
+							if (rowBox.width() > 50)
 							{
-								ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qImage.copy(rowBox)));
+								float fRatio = (float)rowBox.height() / rowBox.width();
+								if (fRatio > 1.1f && fRatio < 1.2f)
+								{
+									ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qImage.copy(rowBox)));
+								}
 							}
 						}
 						else
