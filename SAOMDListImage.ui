@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>SAO:MD List Image</string>
   </property>
+  <property name="windowIcon">
+   <iconset theme=":/SAOMDListImage/icon"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
