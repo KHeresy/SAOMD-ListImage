@@ -1,6 +1,7 @@
 #include "SAOMDListImage.h"
 
 #pragma region Qt Headers
+#include <QDialog>
 #include <QDropEvent>
 #include <QFileDialog>
 #include <QGraphicsItem>
@@ -154,6 +155,9 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 	ui.graphicsView->setScene(new QGraphicsScene());
 	//ui.graphicsView->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
 	setAcceptDrops(true);
+
+	m_qAbout = new QAbout(this);
+	m_qAbout->setModal(true);
 }
 
 void SAOMDListImage::dragEnterEvent(QDragEnterEvent* pEvent)
@@ -208,7 +212,7 @@ void SAOMDListImage::slotSave()
 
 void SAOMDListImage::slotAbout()
 {
-	//TODO:
+	m_qAbout->show();
 }
 #pragma endregion
 

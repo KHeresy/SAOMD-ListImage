@@ -96,13 +96,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="SAOMDListImage.qrc" />
+    <QtUic Include="QAbout.ui" />
     <QtUic Include="SAOMDListImage.ui" />
     <QtMoc Include="SAOMDListImage.h" />
+    <ClCompile Include="QAbout.cpp" />
     <ClCompile Include="SAOMDListImage.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SAOMDListImage.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="QAbout.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

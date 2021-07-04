@@ -2,6 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_SAOMDListImage.h"
+#include "QAbout.h"
 
 class SAOMDListImage : public QMainWindow
 {
@@ -26,5 +27,6 @@ private slots:
 
 private:
 	Ui::SAOMDListImageClass	ui;
+	QAbout* m_qAbout;
 	QList<QGraphicsPixmapItem*>	m_aItems;
 };
