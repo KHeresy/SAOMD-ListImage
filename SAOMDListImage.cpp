@@ -9,6 +9,7 @@
 #include <QMimeData>
 #pragma endregion
 
+#pragma region Internal process functions
 QRect detectRow(const QImage& qImage, const QColor& mBGColorBase, const QRect& qRange)
 {
 	const QRgb* pImageData = (const QRgb*)(qImage.constBits());
@@ -95,6 +96,7 @@ QRect detectColumn(const QImage& qImage, const QColor& mBGColorBase, const QRect
 	else
 		return QRect();
 }
+#pragma endregion
 
 SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 {
@@ -141,7 +143,16 @@ void SAOMDListImage::slotLoad()
 
 void SAOMDListImage::slotSave()
 {
+	QString sFile = QFileDialog::getSaveFileName(this, tr("Input the file to save"), ".", "Images (*.png)");
+	if (!sFile.isEmpty())
+	{
+		QImage image(ui.graphicsView->scene()->sceneRect().size().toSize(), QImage::Format_ARGB32);
+		image.fill(Qt::transparent);
 
+		QPainter painter(&image);
+		ui.graphicsView->scene()->render(&painter);
+		image.save(sFile);
+	}
 }
 #pragma endregion
 
@@ -226,7 +237,8 @@ void SAOMDListImage::updateLayout()
 {
 	int iCol = ui.hsColumnNum->value();
 	int iBorder = ui.hsItemBorder->value();
-	auto vItems = ui.graphicsView->scene()->items(Qt::AscendingOrder);
+	auto pScene = ui.graphicsView->scene();
+	auto vItems = pScene->items(Qt::AscendingOrder);
 
 	int x = 0, y = 0, num = 0;
 	for (auto& pItem : vItems)
@@ -240,7 +252,9 @@ void SAOMDListImage::updateLayout()
 			x = 0;
 			y += (pItem->boundingRect().height() + iBorder);
 		}
+	
 	}
 
-	ui.graphicsView->fitInView(ui.graphicsView->scene()->itemsBoundingRect(),Qt::KeepAspectRatio);
+	pScene->setSceneRect(pScene->itemsBoundingRect());
+	ui.graphicsView->fitInView(pScene->sceneRect(),Qt::KeepAspectRatio);
 }
