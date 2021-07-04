@@ -25,5 +25,6 @@ private slots:
 	void updateLayout();
 
 private:
-	Ui::SAOMDListImageClass ui;
+	Ui::SAOMDListImageClass	ui;
+	QList<QGraphicsPixmapItem*>	m_aItems;
 };

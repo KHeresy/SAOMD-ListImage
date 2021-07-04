@@ -264,7 +264,7 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 								{
 									QImage qIcon = qImage.copy(rowBox);
 									removeBorder(qIcon, pImageData[iShift + iLeft]);
-									ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qIcon));
+									m_aItems.push_back( ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qIcon)) );
 								}
 							}
 						}
@@ -296,10 +296,9 @@ void SAOMDListImage::updateLayout()
 	int iCol = ui.hsColumnNum->value();
 	int iBorder = ui.hsItemBorder->value();
 	auto pScene = ui.graphicsView->scene();
-	auto vItems = pScene->items(Qt::AscendingOrder);
 
 	int x = 0, y = 0, num = 0;
-	for (auto& pItem : vItems)
+	for (auto& pItem : m_aItems)
 	{
 		pItem->setPos(x, y);
 		x += (iBorder + pItem->boundingRect().width() );
@@ -310,7 +309,6 @@ void SAOMDListImage::updateLayout()
 			x = 0;
 			y += (pItem->boundingRect().height() + iBorder);
 		}
-	
 	}
 
 	pScene->setSceneRect(pScene->itemsBoundingRect());
