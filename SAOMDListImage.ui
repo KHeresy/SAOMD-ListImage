@@ -14,7 +14,8 @@
    <string>SAO:MD List Image</string>
   </property>
   <property name="windowIcon">
-   <iconset theme=":/SAOMDListImage/icon"/>
+   <iconset theme=":/SAOMDListImage/icon">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -205,8 +206,8 @@
    <slot>updateLayout()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>87</y>
+     <x>1163</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>881</x>
@@ -230,10 +231,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAbout</sender>
+   <signal>triggered()</signal>
+   <receiver>SAOMDListImageClass</receiver>
+   <slot>slotAbout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotLoad()</slot>
   <slot>slotSave()</slot>
   <slot>updateLayout()</slot>
+  <slot>slotAbout()</slot>
  </slots>
 </ui>

@@ -21,6 +21,7 @@ private:
 private slots:
 	void slotLoad();
 	void slotSave();
+	void slotAbout();
 	void updateLayout();
 
 private:

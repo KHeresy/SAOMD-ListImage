@@ -10,6 +10,28 @@
 #pragma endregion
 
 #pragma region Internal process functions
+float colorDistance(const QRgb& mColor1, const QRgb& mColor2)
+{
+	QColor	c1 = QColor::fromRgba(mColor1).toRgb(),
+			c2 = QColor::fromRgba(mColor2).toRgb();
+
+	float	fDR = c1.redF() - c2.redF(),
+			fDG = c1.greenF() - c2.greenF(),
+			fDB = c1.blueF() - c2.blueF();
+
+	return sqrt(fDR * fDR + fDG * fDG + fDB * fDB);
+}
+
+bool sameColor(const QRgb& mColor1, const QRgb& mColor2)
+{
+	return(colorDistance(mColor1, mColor2) < 0.25f);
+}
+
+bool sameAsBackground( const QColor& qBG, const QColor& qColor)
+{
+	return (abs(qBG.saturation() - qColor.saturation()) < 20 );
+}
+
 QRect detectRow(const QImage& qImage, const QColor& mBGColorBase, const QRect& qRange)
 {
 	const QRgb* pImageData = (const QRgb*)(qImage.constBits());
@@ -22,7 +44,7 @@ QRect detectRow(const QImage& qImage, const QColor& mBGColorBase, const QRect& q
 		for (int x = qRange.left(); x < qRange.width() / 4; ++x)
 		{
 			QColor mColor = QColor::fromRgba(pImageData[y * qImage.width() + x]).toHsl();
-			if (abs(mColor.saturation() - mBGColorBase.saturation()) > 20)
+			if (!sameAsBackground(mBGColorBase, mColor))
 			{
 				bDiff = true;
 				break;
@@ -66,7 +88,7 @@ QRect detectColumn(const QImage& qImage, const QColor& mBGColorBase, const QRect
 		for (int y = qRange.top(); y < qRange.bottom(); ++y)
 		{
 			QColor mColor = QColor::fromRgba(pImageData[y * qImage.width() + x]).toHsl();
-			if (abs(mColor.saturation() - mBGColorBase.saturation()) > 20)
+			if (!sameAsBackground(mBGColorBase, mColor))
 			{
 				bDiff = true;
 				break;
@@ -96,12 +118,41 @@ QRect detectColumn(const QImage& qImage, const QColor& mBGColorBase, const QRect
 	else
 		return QRect();
 }
+
+void removeBorder(QImage& qImage, const QRgb& mBGColorBase)
+{
+	QRgb* pImageData = (QRgb*)(qImage.bits());
+	for (int y = 0; y < qImage.height(); ++y)
+	{
+		for (int x = 0; x < qImage.width(); ++x)
+		{
+			QRgb& rRgb = pImageData[y * qImage.width() + x];
+			if (sameColor(rRgb, mBGColorBase))
+				rRgb = qRgba(0, 0, 0, 0);
+			else
+				break;
+		}
+
+		for (int x = qImage.width() - 1; x >=0 ; --x)
+		{
+			QRgb& rRgb = pImageData[y * qImage.width() + x];
+			if (QColor::fromRgba(rRgb).alpha() == 0)
+				break;
+
+			if (sameColor(rRgb, mBGColorBase))
+				rRgb = qRgba(0, 0, 0, 0);
+			else
+				break;
+		}
+	}
+}
 #pragma endregion
 
 SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
 	ui.graphicsView->setScene(new QGraphicsScene());
+	//ui.graphicsView->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
 	setAcceptDrops(true);
 }
 
@@ -153,6 +204,11 @@ void SAOMDListImage::slotSave()
 		ui.graphicsView->scene()->render(&painter);
 		image.save(sFile);
 	}
+}
+
+void SAOMDListImage::slotAbout()
+{
+	//TODO:
 }
 #pragma endregion
 
@@ -206,7 +262,9 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 								float fRatio = (float)rowBox.height() / rowBox.width();
 								if (fRatio > 1.1f && fRatio < 1.2f)
 								{
-									ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qImage.copy(rowBox)));
+									QImage qIcon = qImage.copy(rowBox);
+									removeBorder(qIcon, pImageData[iShift + iLeft]);
+									ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qIcon));
 								}
 							}
 						}
