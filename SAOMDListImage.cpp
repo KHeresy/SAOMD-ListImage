@@ -185,6 +185,7 @@ void SAOMDListImage::loadFiles(const QStringList & aFileList)
 	{
 		processFile(sFile);
 	}
+	ui.leNumber->setText(QString("%1").arg(m_aItems.size()));
 	updateLayout();
 }
 
@@ -301,20 +302,25 @@ void SAOMDListImage::updateLayout()
 	int iBorder = ui.hsItemBorder->value();
 	auto pScene = ui.graphicsView->scene();
 
-	int x = 0, y = 0, num = 0;
+	int x = 0, y = 0, num = -1, row = 0;
 	for (auto& pItem : m_aItems)
 	{
-		pItem->setPos(x, y);
-		x += (iBorder + pItem->boundingRect().width() );
-
-		if (++num > iCol)
+		if (++num >= iCol)
 		{
+			++row;
 			num = 0;
 			x = 0;
 			y += (pItem->boundingRect().height() + iBorder);
 		}
+
+		pItem->setPos(x, y);
+		x += (iBorder + pItem->boundingRect().width() );
 	}
 
+	ui.leArraySize->setText(QString("%1 x %2").arg(iCol).arg(row + 1));
+
 	pScene->setSceneRect(pScene->itemsBoundingRect());
-	ui.graphicsView->fitInView(pScene->sceneRect(),Qt::KeepAspectRatio);
+	auto rect = pScene->sceneRect();
+	ui.graphicsView->fitInView(rect,Qt::KeepAspectRatio);
+	ui.leImageSize->setText(QString("%1 x %2").arg(rect.width()).arg(rect.height()));
 }
