@@ -13,9 +13,28 @@ This tool is used to combine multiple screenshot of character list in game, and 
 - Windows 10 x64 2004+
 - [Microsoft Visual C++ Redistributable for Visual Studio 2019](https://aka.ms/vs/16/release/vc_redist.x64.exe)
 
+## 下載程式 (Download)
+
+### 中文
+
+下載頁面：https://github.com/KHeresy/SAOMD-ListImage/releases
+
+- 選取要的版本（最上面的是最新的），點選下方的「Assets」以展開檔案列表
+- 點選 `SAOMD-ListImage.zip` 下載，然後解壓縮
+- 如果執行時缺少 DLL，請安裝 [Microsoft Visual C++ Redistributable for Visual Studio 2019](https://aka.ms/vs/16/release/vc_redist.x64.exe)
+
+### English
+
+Download page：https://github.com/KHeresy/SAOMD-ListImage/releases
+
+- Choice the version(the top is the last version)，click the "Assets" to expand file list
+- Click `SAOMD-ListImage.zip` to download, and unzip it after downloaded
+- Please install [Microsoft Visual C++ Redistributable for Visual Studio 2019](https://aka.ms/vs/16/release/vc_redist.x64.exe) if missing dll when run the tool
+
 ## 使用方式 (How to use)
 
 ### 中文
+
 1. 在手機遊戲中擷取要使用的角色列表圖
    - 注意腳色外框要完整
 2. 將截圖傳到電腦
@@ -28,6 +47,7 @@ This tool is used to combine multiple screenshot of character list in game, and 
 示意影片：https://www.youtube.com/watch?v=6oa6FZqhbBs
 
 ### English
+
 1. Take character list you need screenshot in game
    - Notice: keep the border complete
 2. Transfer the pictures to Windows PC
