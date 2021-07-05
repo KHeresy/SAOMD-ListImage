@@ -5,7 +5,7 @@
 這是一個用來重新排版《刀劍神域：記憶重組》的角色列表圖的小工具，主要功能是將數張腳色列表的截圖合併，同時也避免在合併截圖後產生一張超長的圖檔。
 
 This is a small tool to layout the character list image of "Sword Art Online: Memory Defrag".
-This tool is used to comine multiple screenshot of character list in game, and avoid generate a super long image.
+This tool is used to combine multiple screenshot of character list in game, and avoid generate a super long image.
 
 ![image](Doc/main.png)
 
