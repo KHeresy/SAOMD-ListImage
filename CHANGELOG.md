@@ -1,4 +1,4 @@
-# §ó·s¬ö¿ý (Change log)
+æ›´æ–°ç´€éŒ„ (Change log)
 
 - V0.2 - 2021/07/05
   - Add some information
