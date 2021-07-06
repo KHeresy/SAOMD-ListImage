@@ -11,11 +11,8 @@
 #pragma endregion
 
 #pragma region Internal process functions
-float colorDistance(const QRgb& mColor1, const QRgb& mColor2)
+float colorDistance(const QColor& c1, const QColor& c2)
 {
-	QColor	c1 = QColor::fromRgba(mColor1).toRgb(),
-			c2 = QColor::fromRgba(mColor2).toRgb();
-
 	float	fDR = c1.redF() - c2.redF(),
 			fDG = c1.greenF() - c2.greenF(),
 			fDB = c1.blueF() - c2.blueF();
@@ -23,17 +20,18 @@ float colorDistance(const QRgb& mColor1, const QRgb& mColor2)
 	return sqrt(fDR * fDR + fDG * fDG + fDB * fDB);
 }
 
-bool sameColor(const QRgb& mColor1, const QRgb& mColor2)
+float colorDistance(const QRgb& mColor1, const QRgb& mColor2)
+{
+	return colorDistance(QColor::fromRgba(mColor1).toRgb(), QColor::fromRgba(mColor2).toRgb());
+}
+
+template<typename _TYPE>
+bool sameColor(const _TYPE& mColor1, const _TYPE& mColor2)
 {
 	return(colorDistance(mColor1, mColor2) < 0.25f);
 }
 
-bool sameAsBackground( const QColor& qBG, const QColor& qColor)
-{
-	return (abs(qBG.saturation() - qColor.saturation()) < 20 );
-}
-
-QRect detectRow(const QImage& qImage, const QColor& mBGColorBase, const QRect& qRange)
+QRect detectRow(const QImage& qImage, const QRgb& mBGColorBase, const QRect& qRange)
 {
 	const QRgb* pImageData = (const QRgb*)(qImage.constBits());
 
@@ -44,8 +42,7 @@ QRect detectRow(const QImage& qImage, const QColor& mBGColorBase, const QRect& q
 		bool bDiff = false;
 		for (int x = qRange.left(); x < qRange.width() / 4; ++x)
 		{
-			QColor mColor = QColor::fromRgba(pImageData[y * qImage.width() + x]).toHsl();
-			if (!sameAsBackground(mBGColorBase, mColor))
+			if (!sameColor(mBGColorBase, pImageData[y * qImage.width() + x]))
 			{
 				bDiff = true;
 				break;
@@ -76,7 +73,7 @@ QRect detectRow(const QImage& qImage, const QColor& mBGColorBase, const QRect& q
 		return QRect();
 }
 
-QRect detectColumn(const QImage& qImage, const QColor& mBGColorBase, const QRect& qRange)
+QRect detectColumn(const QImage& qImage, const QRgb& mBGColorBase, const QRect& qRange)
 {
 	const QRgb* pImageData = (const QRgb*)(qImage.constBits());
 
@@ -88,8 +85,7 @@ QRect detectColumn(const QImage& qImage, const QColor& mBGColorBase, const QRect
 		bool bDiff = false;
 		for (int y = qRange.top(); y < qRange.bottom(); ++y)
 		{
-			QColor mColor = QColor::fromRgba(pImageData[y * qImage.width() + x]).toHsl();
-			if (!sameAsBackground(mBGColorBase, mColor))
+			if (!sameColor(mBGColorBase, pImageData[y * qImage.width() + x]))
 			{
 				bDiff = true;
 				break;
@@ -225,7 +221,7 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 		qImage = qImage.convertedTo(QImage::Format_ARGB32);
 
 		int iLeft = 0, iTop = 0;
-		QColor mBGColorBase;
+		QRgb mBGColorBase;
 
 		// detect background color
 		const QRgb* pImageData = (const QRgb*)(qImage.constBits());
@@ -239,8 +235,7 @@ bool SAOMDListImage::processFile(const QString& sFilename)
 			if (mColor.saturation() < 10)
 			{
 				iLeft = x + 2;
-				mBGColorBase = QColor::fromRgba(pImageData[iShift + iLeft]).toHsl();
-				auto l1 = mBGColorBase.lightness();
+				mBGColorBase = pImageData[iShift + iLeft];
 				break;
 			}
 		}
