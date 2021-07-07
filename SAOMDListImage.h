@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QSettings>
+
 #include "ui_SAOMDListImage.h"
 #include "QAbout.h"
 
@@ -9,11 +11,13 @@ class SAOMDListImage : public QMainWindow
 	Q_OBJECT
 
 public:
-	SAOMDListImage(QWidget *parent = Q_NULLPTR);
+	SAOMDListImage(QWidget* parent = Q_NULLPTR);
+	~SAOMDListImage();
 
 private:
 	bool processFile(const QString& sFilename);
 	void loadFiles(const QStringList& aFileList);
+	QSettings getSettings();
 
 private:
 	void dragEnterEvent(QDragEnterEvent* pEvent) override;

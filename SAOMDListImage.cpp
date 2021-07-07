@@ -154,6 +154,36 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 
 	m_qAbout = new QAbout(this);
 	m_qAbout->setModal(true);
+
+	#pragma region Read setting
+	QSettings qSettings = getSettings();
+	// Windows
+	restoreGeometry(qSettings.value("ui/geometry").toByteArray());
+	restoreState(qSettings.value("ui/windowState").toByteArray());
+
+	// Layout
+	ui.hsColumnNum->setValue(qSettings.value("layout/ColumnNum", 16).toInt());
+	ui.hsItemBorder->setValue(qSettings.value("layout/border", 1).toInt());
+	#pragma endregion
+}
+
+SAOMDListImage::~SAOMDListImage()
+{
+	#pragma region Save setting
+	QSettings qSettings = getSettings();
+	// Windows
+	qSettings.setValue("ui/geometry", saveGeometry());
+	qSettings.setValue("ui/windowState", saveState());
+
+	// Layout
+	qSettings.setValue("layout/ColumnNum", ui.hsColumnNum->value());
+	qSettings.setValue("layout/border", ui.hsItemBorder->value());
+	#pragma endregion
+}
+
+QSettings SAOMDListImage::getSettings()
+{
+	return QSettings("setting.ini", QSettings::IniFormat);
 }
 
 void SAOMDListImage::dragEnterEvent(QDragEnterEvent* pEvent)
@@ -188,14 +218,14 @@ void SAOMDListImage::loadFiles(const QStringList & aFileList)
 #pragma region slot functions
 void SAOMDListImage::slotLoad()
 {
-	QStringList aFiles = QFileDialog::getOpenFileNames( this, tr("Select one or more files"), ".", "Images (*.png *.jpg);;Any files (*.*)");
+	QStringList aFiles = QFileDialog::getOpenFileNames( this, tr("Select one or more files"), "", "Images (*.png *.jpg);;Any files (*.*)");
 	if (aFiles.size() > 0)
 		loadFiles(aFiles);
 }
 
 void SAOMDListImage::slotSave()
 {
-	QString sFile = QFileDialog::getSaveFileName(this, tr("Input the file to save"), ".", "Images (*.png)");
+	QString sFile = QFileDialog::getSaveFileName(this, tr("Input the file to save"), "", "Images (*.png)");
 	if (!sFile.isEmpty())
 	{
 		QImage image(ui.graphicsView->scene()->sceneRect().size().toSize(), QImage::Format_ARGB32);
