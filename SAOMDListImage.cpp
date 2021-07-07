@@ -1,4 +1,5 @@
 #include "SAOMDListImage.h"
+#include "Define.h"
 
 #pragma region Qt Headers
 #include <QDialog>
@@ -152,6 +153,11 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 	//ui.graphicsView->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
 	setAcceptDrops(true);
 
+	setWindowTitle(windowTitle() + SQOMDLI_VER);
+
+	m_qUpdateCheck = new QUpdateCheck();
+	ui.dockUpdateer->setWidget(m_qUpdateCheck);
+
 	m_qAbout = new QAbout(this);
 	m_qAbout->setModal(true);
 
@@ -164,6 +170,12 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 	// Layout
 	ui.hsColumnNum->setValue(qSettings.value("layout/ColumnNum", 16).toInt());
 	ui.hsItemBorder->setValue(qSettings.value("layout/border", 1).toInt());
+
+	// Update Checker
+	bool bUpdate = qSettings.value("updater/auto", false).toBool();
+	m_qUpdateCheck->ui.cbAutoCheck->setChecked(bUpdate);
+	if (bUpdate)
+		m_qUpdateCheck->slotCheckUpdate();
 	#pragma endregion
 }
 
@@ -178,6 +190,9 @@ SAOMDListImage::~SAOMDListImage()
 	// Layout
 	qSettings.setValue("layout/ColumnNum", ui.hsColumnNum->value());
 	qSettings.setValue("layout/border", ui.hsItemBorder->value());
+
+	// Update Checker
+	qSettings.setValue("updater/auto", m_qUpdateCheck->ui.cbAutoCheck->isChecked());
 	#pragma endregion
 }
 

@@ -9,7 +9,6 @@ class QAbout : public QDialog
 
 public:
 	QAbout(QWidget *parent = Q_NULLPTR);
-	~QAbout();
 
 private:
 	Ui::QAbout ui;

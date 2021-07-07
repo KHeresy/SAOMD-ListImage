@@ -10,12 +10,18 @@
     <ClCompile Include="QAbout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QUpdateCheck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SAOMDListImage.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="QAbout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="QUpdateCheck.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -27,6 +33,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="QAbout.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="QUpdateCheck.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -53,5 +62,10 @@
   <ItemGroup>
     <None Include="README.md" />
     <None Include="CHANGELOG.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Define.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

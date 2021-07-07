@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SAO:MD List Image</string>
+   <string>SAO:MD List Image </string>
   </property>
   <property name="windowIcon">
    <iconset theme=":/SAOMDListImage/icon">
@@ -51,6 +51,7 @@
      <string>View</string>
     </property>
     <addaction name="actionLayout"/>
+    <addaction name="actionUpdate_Checker"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menuView"/>
@@ -184,6 +185,15 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockUpdateer">
+   <property name="windowTitle">
+    <string>Update Checker</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2"/>
+  </widget>
   <action name="action_Load">
    <property name="text">
     <string>&amp;Load</string>
@@ -205,6 +215,14 @@
    </property>
    <property name="text">
     <string>Layout</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Checker">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Update Checker</string>
    </property>
   </action>
  </widget>
@@ -318,6 +336,38 @@
     <hint type="sourcelabel">
      <x>1048</x>
      <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionUpdate_Checker</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>dockUpdateer</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1048</x>
+     <y>548</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dockUpdateer</sender>
+   <signal>visibilityChanged(bool)</signal>
+   <receiver>actionUpdate_Checker</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1048</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

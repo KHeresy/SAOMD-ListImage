@@ -5,6 +5,7 @@
 
 #include "ui_SAOMDListImage.h"
 #include "QAbout.h"
+#include "QUpdateCheck.h"
 
 class SAOMDListImage : public QMainWindow
 {
@@ -31,6 +32,9 @@ private slots:
 
 private:
 	Ui::SAOMDListImageClass	ui;
-	QAbout* m_qAbout;
+
+	QAbout*			m_qAbout;
+	QUpdateCheck*	m_qUpdateCheck;
+
 	QList<QGraphicsPixmapItem*>	m_aItems;
 };
