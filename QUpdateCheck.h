@@ -20,4 +20,7 @@ private slots:
 
 public:
 	Ui::QUpdateCheck ui;
+
+private:
+	QUrl qUpdateUrl;
 };

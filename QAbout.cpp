@@ -10,4 +10,5 @@ QAbout::QAbout(QWidget *parent)
 	ui.setupUi(this);
 	ui.label->setOpenExternalLinks(true);
 	ui.labelTitle->setText(ui.labelTitle->text() + SQOMDLI_VER);
+	ui.labelDate->setText(ui.labelDate->text() + SAOMDLI_RELEASE);
 }
