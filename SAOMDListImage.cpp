@@ -9,141 +9,8 @@
 #include <QImage>
 #include <QMessageBox>
 #include <QMimeData>
-#pragma endregion
-
-#pragma region Internal process functions
-float colorDistance(const QColor& c1, const QColor& c2)
-{
-	float	fDR = c1.redF() - c2.redF(),
-			fDG = c1.greenF() - c2.greenF(),
-			fDB = c1.blueF() - c2.blueF();
-
-	return sqrt(fDR * fDR + fDG * fDG + fDB * fDB);
-}
-
-float colorDistance(const QRgb& mColor1, const QRgb& mColor2)
-{
-	return colorDistance(QColor::fromRgba(mColor1).toRgb(), QColor::fromRgba(mColor2).toRgb());
-}
-
-template<typename _TYPE>
-bool sameColor(const _TYPE& mColor1, const _TYPE& mColor2)
-{
-	return(colorDistance(mColor1, mColor2) < 0.25f);
-}
-
-QRect detectRow(const QImage& qImage, const QRgb& mBGColorBase, const QRect& qRange)
-{
-	const QRgb* pImageData = (const QRgb*)(qImage.constBits());
-
-	int iRowBegin = -1, iRowEnd = -2;
-	bool bInRange = false;
-	for (int y = qRange.top(); y < qRange.bottom(); ++y)
-	{
-		bool bDiff = false;
-		for (int x = qRange.left(); x < qRange.width() / 4; ++x)
-		{
-			if (!sameColor(mBGColorBase, pImageData[y * qImage.width() + x]))
-			{
-				bDiff = true;
-				break;
-			}
-		}
-
-		if (bInRange)
-		{
-			if (!bDiff)
-			{
-				iRowEnd = y;
-				break;
-			}
-		}
-		else
-		{
-			if (bDiff)
-			{
-				bInRange = true;
-				iRowBegin = y;
-			}
-		}
-	}
-
-	if (iRowEnd > iRowBegin )
-		return QRect(qRange.left(), iRowBegin, qRange.right(), iRowEnd - iRowBegin);
-	else
-		return QRect();
-}
-
-QRect detectColumn(const QImage& qImage, const QRgb& mBGColorBase, const QRect& qRange)
-{
-	const QRgb* pImageData = (const QRgb*)(qImage.constBits());
-
-	int iLeft = -1, iRight = -2;
-	bool bInRange = false;
-
-	for (int x = qRange.left(); x < qRange.right(); ++x)
-	{
-		bool bDiff = false;
-		for (int y = qRange.top(); y < qRange.bottom(); ++y)
-		{
-			if (!sameColor(mBGColorBase, pImageData[y * qImage.width() + x]))
-			{
-				bDiff = true;
-				break;
-			}
-		}
-
-		if (bInRange)
-		{
-			if (!bDiff)
-			{
-				iRight = x;
-				break;
-			}
-		}
-		else
-		{
-			if (bDiff)
-			{
-				bInRange = true;
-				iLeft = x;
-			}
-		}
-	}
-
-	if (iRight > iLeft)
-		return QRect(iLeft, qRange.top(), iRight - iLeft, qRange.height());
-	else
-		return QRect();
-}
-
-void removeBorder(QImage& qImage, const QRgb& mBGColorBase)
-{
-	QRgb* pImageData = (QRgb*)(qImage.bits());
-	for (int y = 0; y < qImage.height(); ++y)
-	{
-		for (int x = 0; x < qImage.width(); ++x)
-		{
-			QRgb& rRgb = pImageData[y * qImage.width() + x];
-			if (sameColor(rRgb, mBGColorBase))
-				rRgb = qRgba(0, 0, 0, 0);
-			else
-				break;
-		}
-
-		for (int x = qImage.width() - 1; x >=0 ; --x)
-		{
-			QRgb& rRgb = pImageData[y * qImage.width() + x];
-			if (QColor::fromRgba(rRgb).alpha() == 0)
-				break;
-
-			if (sameColor(rRgb, mBGColorBase))
-				rRgb = qRgba(0, 0, 0, 0);
-			else
-				break;
-		}
-	}
-}
+#include <QFuture>
+#include <QtConcurrent>
 #pragma endregion
 
 SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
@@ -222,10 +89,30 @@ void SAOMDListImage::dropEvent(QDropEvent* pEvent)
 
 void SAOMDListImage::loadFiles(const QStringList & aFileList)
 {
+	QList<QFuture<CImageList*>> vResult;
 	for (const QString& sFile : aFileList)
+		vResult.push_back(QtConcurrent::run([sFile]() {
+			return new CImageList(sFile);
+		}));
+
+	for (auto& rIL : vResult)
 	{
-		processFile(sFile);
+		CImageList* mIL = rIL.result();
+		if (mIL->isVaild())
+		{
+			if (mIL->size() > 0)
+			{
+				for (const auto& qRect : mIL->m_vRects)
+					m_aItems.push_back(ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(mIL->getItem(qRect))));
+			}
+		}
+		else
+		{
+
+		}
+		delete mIL;
 	}
+
 	ui.leNumber->setText(QString("%1").arg(m_aItems.size()));
 	updateLayout();
 }
@@ -257,84 +144,6 @@ void SAOMDListImage::slotAbout()
 	m_qAbout->show();
 }
 #pragma endregion
-
-bool SAOMDListImage::processFile(const QString& sFilename)
-{
-	QImage qImage;
-	if (qImage.load(sFilename))
-	{
-		qImage = qImage.convertedTo(QImage::Format_ARGB32);
-
-		int iLeft = 0, iTop = 0;
-		QRgb mBGColorBase;
-
-		// detect background color
-		const QRgb* pImageData = (const QRgb*)(qImage.constBits());
-		int m = qImage.height() / 2,
-			w = qImage.width();
-		int iShift = w * m;
-		for (int x = 0; x < w; ++x)
-		{
-			QColor mColor = QColor::fromRgba(pImageData[iShift + x]).toHsl();
-
-			if (mColor.saturation() < 10)
-			{
-				iLeft = x + 2;
-				mBGColorBase = pImageData[iShift + iLeft];
-				break;
-			}
-		}
-
-		QRect qRange(iLeft, iTop, w - iLeft, qImage.height() - iTop);
-		while (true)
-		{
-			QRect rowRect = detectRow(qImage, mBGColorBase, qRange);
-			if (rowRect.isValid())
-			{
-				qRange.setTop(rowRect.bottom() + 2);
-
-				if (rowRect.height() > 50)
-				{
-					while (true)
-					{
-						QRect rowBox = detectColumn(qImage, mBGColorBase, rowRect);
-						if (rowBox.isValid())
-						{
-							rowRect.setLeft(rowBox.right() + 2);
-
-							if (rowBox.width() > 50)
-							{
-								float fRatio = (float)rowBox.height() / rowBox.width();
-								if (fRatio > 1.1f && fRatio < 1.2f)
-								{
-									QImage qIcon = qImage.copy(rowBox);
-									removeBorder(qIcon, pImageData[iShift + iLeft]);
-									m_aItems.push_back( ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qIcon)) );
-								}
-							}
-						}
-						else
-						{
-							break;
-						}
-					}
-				}
-			}
-			else
-			{
-				break;
-			}
-		}
-
-		//ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qImage));
-		return true;
-	}
-	else
-	{
-		QMessageBox::warning(this, tr("Load fail"), tr("File load fail: ") + sFilename);
-		return false;
-	}
-}
 
 void SAOMDListImage::updateLayout()
 {

@@ -32,12 +32,12 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>Qt61</QtInstall>
-    <QtModules>core;gui;network;widgets</QtModules>
+    <QtModules>concurrent;core;gui;network;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>Qt61</QtInstall>
-    <QtModules>core;gui;network;widgets</QtModules>
+    <QtModules>concurrent;core;gui;network;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -100,6 +100,7 @@
     <QtUic Include="QUpdateCheck.ui" />
     <QtUic Include="SAOMDListImage.ui" />
     <QtMoc Include="SAOMDListImage.h" />
+    <ClCompile Include="ImageList.cpp" />
     <ClCompile Include="QAbout.cpp" />
     <ClCompile Include="QUpdateCheck.cpp" />
     <ClCompile Include="SAOMDListImage.cpp" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h" />
+    <ClInclude Include="ImageList.h" />
     <QtMoc Include="QUpdateCheck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

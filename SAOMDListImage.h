@@ -6,6 +6,7 @@
 #include "ui_SAOMDListImage.h"
 #include "QAbout.h"
 #include "QUpdateCheck.h"
+#include "ImageList.h"
 
 class SAOMDListImage : public QMainWindow
 {
@@ -16,7 +17,6 @@ public:
 	~SAOMDListImage();
 
 private:
-	bool processFile(const QString& sFilename);
 	void loadFiles(const QStringList& aFileList);
 	QSettings getSettings();
 

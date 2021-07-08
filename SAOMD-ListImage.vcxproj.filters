@@ -13,6 +13,9 @@
     <ClCompile Include="QUpdateCheck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ImageList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SAOMDListImage.h">
@@ -65,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
