@@ -56,6 +56,8 @@ public:
 		else if (iMinor > rVer.iMinor)
 			return false;
 
+		if (sQualifier == rVer.sQualifier)
+			return false;
 		return sQualifier < rVer.sQualifier;
 	}
 
