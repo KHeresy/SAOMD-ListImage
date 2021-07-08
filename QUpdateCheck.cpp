@@ -15,7 +15,7 @@ class CVersion
 public:
 	CVersion(QString sVerStr)
 	{
-		if (sVerStr.length() > 3)
+		if (sVerStr.length() >= 3)
 		{
 			// check first character
 			if (sVerStr[0] == 'v' || sVerStr[0] == 'V')

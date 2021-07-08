@@ -70,6 +70,7 @@ Demo Video：https://www.youtube.com/watch?v=6oa6FZqhbBs
 - [Microsoft Visual Studio 2019](https://visualstudio.microsoft.com/zh-hant/vs/)
 - [Qt VS Tools for Visual Studio 2019](https://marketplace.visualstudio.com/items?itemName=TheQtCompany.QtVisualStudioTools2019)
 - [Qt 6.1.1](https://www.qt.io/)
+- Required [OpenSSL Binary](https://kb.firedaemon.com/support/solutions/articles/4000121705)
 
 ## 個人網站 (My Website)
 - [Heresy's SAO:MD](https://ksaomd.wordpress.com/)
