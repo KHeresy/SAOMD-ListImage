@@ -1,10 +1,16 @@
 #include "SAOMDListImage.h"
 #include <QtWidgets/QApplication>
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
+	QApplication app(argc, argv);
+
+	QTranslator qtTranslator;
+	if(qtTranslator.load(QLocale(), QLatin1String("saomd-listimage"), QLatin1String("_")))
+		app.installTranslator(&qtTranslator);
+
 	SAOMDListImage w;
 	w.show();
-	return a.exec();
+	return app.exec();
 }

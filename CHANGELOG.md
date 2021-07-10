@@ -1,5 +1,7 @@
 # 更新紀錄 (Change log)
 
+- V0.5 - 2021/07/
+  - 加入語系功能，目前支援繁體中文 (Add language translator, now support Traditional Chinese)
 - V0.4 - 2021/07/10
   - 加入清除功能 (Add clear)
   - 加入選取、刪除功能 (Can select and delete items)

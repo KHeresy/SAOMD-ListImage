@@ -1,4 +1,6 @@
 /.vs/
 /x64/
 /Release/
+/SAOMD-ListImage/
+/_Data/
 *.user

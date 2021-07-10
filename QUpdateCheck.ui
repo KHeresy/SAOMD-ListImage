@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>QUpdateCheck</string>
+   <string>Update Checker</string>
   </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">

@@ -121,6 +121,9 @@
     <ClInclude Include="ImageList.h" />
     <QtMoc Include="QUpdateCheck.h" />
   </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="saomd-listimage_zh.ts" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />
