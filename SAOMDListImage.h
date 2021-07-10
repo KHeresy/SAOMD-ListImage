@@ -21,6 +21,7 @@ private:
 	QSettings getSettings();
 
 private:
+	void closeEvent(QCloseEvent* pEvent) override;
 	void dragEnterEvent(QDragEnterEvent* pEvent) override;
 	void dropEvent(QDropEvent* pEvent) override;
 

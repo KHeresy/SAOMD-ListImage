@@ -51,6 +51,15 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 
 SAOMDListImage::~SAOMDListImage()
 {
+}
+
+QSettings SAOMDListImage::getSettings()
+{
+	return QSettings("setting.ini", QSettings::IniFormat);
+}
+
+void SAOMDListImage::closeEvent(QCloseEvent* pEvent)
+{
 	#pragma region Save setting
 	QSettings qSettings = getSettings();
 	// Windows
@@ -66,11 +75,8 @@ SAOMDListImage::~SAOMDListImage()
 	#pragma endregion
 
 	slotClear();
-}
 
-QSettings SAOMDListImage::getSettings()
-{
-	return QSettings("setting.ini", QSettings::IniFormat);
+	QMainWindow::closeEvent(pEvent);
 }
 
 void SAOMDListImage::dragEnterEvent(QDragEnterEvent* pEvent)
