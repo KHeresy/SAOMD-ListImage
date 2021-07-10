@@ -51,6 +51,8 @@
      <string>Help</string>
     </property>
     <addaction name="actionDemo_Video"/>
+    <addaction name="actionHow_to_use"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -320,6 +322,11 @@
     <string>Demo Video</string>
    </property>
   </action>
+  <action name="actionHow_to_use">
+   <property name="text">
+    <string>How to use</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -566,6 +573,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionHow_to_use</sender>
+   <signal>triggered()</signal>
+   <receiver>SAOMDListImageClass</receiver>
+   <slot>slotHowToUse()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotLoad()</slot>
@@ -575,5 +598,6 @@
   <slot>slotClear()</slot>
   <slot>slotDeleteSelected()</slot>
   <slot>slotDemoVideo()</slot>
+  <slot>slotHowToUse()</slot>
  </slots>
 </ui>

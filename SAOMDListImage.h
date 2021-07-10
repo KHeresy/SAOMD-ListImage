@@ -30,6 +30,7 @@ private slots:
 	void slotClear();
 	void slotSave();
 	void slotDemoVideo();
+	void slotHowToUse();
 	void slotAbout();
 	void slotDeleteSelected();
 	void slotSelectChanged();

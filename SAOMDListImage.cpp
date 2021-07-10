@@ -181,6 +181,11 @@ void SAOMDListImage::slotDemoVideo()
 	QDesktopServices::openUrl(QUrl(DEMO_VIDEO_URL));
 }
 
+void SAOMDListImage::slotHowToUse()
+{
+	QDesktopServices::openUrl(QUrl("https://github.com/KHeresy/SAOMD-ListImage/blob/master/README.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-how-to-use"));
+}
+
 void SAOMDListImage::slotSelectChanged()
 {
 	if (ui.graphicsView->scene()->selectedItems().size() > 0)

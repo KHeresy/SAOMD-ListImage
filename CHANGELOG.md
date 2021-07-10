@@ -2,7 +2,8 @@
 
 - V0.5 - 2021/07/
   - 加入語系功能，目前支援繁體中文 (Add language translator, now support Traditional Chinese)
-  - 於「說明」選單加入說明影片連結 (Add demove video link in help menu)
+  - 於「說明」選單加入說明影片、以及如何使用的連結 (Add demo video and ""how to use" link in help menu)
+  - 修正 Item Control 的狀態儲存問題 (Fix state save issue of Item Control)
 - V0.4 - 2021/07/10
   - 加入清除功能 (Add clear)
   - 加入選取、刪除功能 (Can select and delete items)

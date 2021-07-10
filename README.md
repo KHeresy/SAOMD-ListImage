@@ -43,8 +43,9 @@ Download page：https://github.com/KHeresy/SAOMD-ListImage/releases
 3. 執行這個程式
    1. 點選「File」－「Load」、並點選需要的截圖（多選）
    2. 等待處理完成，將偵測到的結果顯示於程式中
-   3. 調整「Column number」與「Border Size」來調整影像
-   4. 確定後，點選「File」 - 「Save」儲存合併完的影像
+   3. 如果有不需要的項目，請使用滑鼠點選、或是圈選項目，然後透過「Item Control」的「Delete Selected」來刪除
+   4. 調整「Column number」與「Border Size」來調整影像
+   5. 確定後，點選「File」 - 「Save」儲存合併完的影像
 
 示意影片：https://youtu.be/ockk6MTUR38
 
@@ -56,8 +57,9 @@ Download page：https://github.com/KHeresy/SAOMD-ListImage/releases
 3. Run this tool
    1. Click "File" - "Load", and select the screenshot. Can select multiple files.
    2. Wait process finish, the detected character will show in application
-   3. Adjust "Column number" and "Border Size"
-   4. Click "File" - "Save" to export the combined image
+   3. If there are items that not wanted, select the items by click or dragging a selection range, then delete by the button "Delete Selected" in "Item Control"
+   4. Adjust "Column number" and "Border Size"
+   5. Click "File" - "Save" to export the combined image
 
 Demo Video：https://youtu.be/ockk6MTUR38
 
