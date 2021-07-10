@@ -7,11 +7,10 @@ class CImageList
 public:
 	QImage			m_qImage;
 	QList<QRect>	m_vRects;
+	QList<QImage>	m_vItems;
 
 public:
 	CImageList(const QString& sFilename);
-
-	QImage getItem(const QRect& qRect);
 
 	bool isVaild() const
 	{
@@ -22,6 +21,9 @@ public:
 	{
 		return m_vRects.size();
 	}
+
+protected:
+	QImage getItem(const QRect& qRect);
 
 protected:
 	QRgb	m_BackgroundColor;

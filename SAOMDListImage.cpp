@@ -61,6 +61,8 @@ SAOMDListImage::~SAOMDListImage()
 	// Update Checker
 	qSettings.setValue("updater/auto", m_qUpdateCheck->ui.cbAutoCheck->isChecked());
 	#pragma endregion
+
+	slotClear();
 }
 
 QSettings SAOMDListImage::getSettings()
@@ -98,22 +100,22 @@ void SAOMDListImage::loadFiles(const QStringList & aFileList)
 	for (auto& rIL : vResult)
 	{
 		CImageList* mIL = rIL.result();
+		m_vImageList.push_back(mIL);
 		if (mIL->isVaild())
 		{
 			if (mIL->size() > 0)
 			{
-				for (const auto& qRect : mIL->m_vRects)
-					m_aItems.push_back(ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(mIL->getItem(qRect))));
+				for (const auto& qItem : mIL->m_vItems)
+					m_vItems.push_back(ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qItem)));
 			}
 		}
 		else
 		{
 
 		}
-		delete mIL;
 	}
 
-	ui.leNumber->setText(QString("%1").arg(m_aItems.size()));
+	ui.leNumber->setText(QString("%1").arg(m_vItems.size()));
 	updateLayout();
 }
 
@@ -123,6 +125,21 @@ void SAOMDListImage::slotLoad()
 	QStringList aFiles = QFileDialog::getOpenFileNames( this, tr("Select one or more files"), "", "Images (*.png *.jpg);;Any files (*.*)");
 	if (aFiles.size() > 0)
 		loadFiles(aFiles);
+}
+
+void SAOMDListImage::slotClear()
+{
+	auto pScene = ui.graphicsView->scene();
+	for (auto pItem : m_vItems)
+	{
+		pScene->removeItem(pItem);
+		delete pItem;
+	}
+	m_vItems.clear();
+
+	for (auto pIL : m_vImageList)
+		delete pIL;
+	m_vImageList.clear();
 }
 
 void SAOMDListImage::slotSave()
@@ -152,7 +169,7 @@ void SAOMDListImage::updateLayout()
 	auto pScene = ui.graphicsView->scene();
 
 	int x = 0, y = 0, num = -1, row = 0;
-	for (auto& pItem : m_aItems)
+	for (auto& pItem : m_vItems)
 	{
 		if (++num >= iCol)
 		{

@@ -38,7 +38,10 @@
      <string>&amp;File</string>
     </property>
     <addaction name="action_Load"/>
+    <addaction name="actionClear"/>
     <addaction name="action_Save"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -225,6 +228,16 @@
     <string>Update Checker</string>
    </property>
   </action>
+  <action name="actionClear">
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -375,11 +388,44 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionClear</sender>
+   <signal>triggered()</signal>
+   <receiver>SAOMDListImageClass</receiver>
+   <slot>slotClear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>SAOMDListImageClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotLoad()</slot>
   <slot>slotSave()</slot>
   <slot>updateLayout()</slot>
   <slot>slotAbout()</slot>
+  <slot>slotClear()</slot>
  </slots>
 </ui>

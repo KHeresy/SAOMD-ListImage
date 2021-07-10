@@ -183,6 +183,7 @@ CImageList::CImageList(const QString& sFilename)
 								if (fRatio > 1.1f && fRatio < 1.2f)
 								{
 									m_vRects.push_back(rowBox);
+									m_vItems.push_back(getItem(rowBox));
 								}
 							}
 						}

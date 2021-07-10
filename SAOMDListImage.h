@@ -26,6 +26,7 @@ private:
 
 private slots:
 	void slotLoad();
+	void slotClear();
 	void slotSave();
 	void slotAbout();
 	void updateLayout();
@@ -36,5 +37,6 @@ private:
 	QAbout*			m_qAbout;
 	QUpdateCheck*	m_qUpdateCheck;
 
-	QList<QGraphicsPixmapItem*>	m_aItems;
+	QList<QGraphicsPixmapItem*>	m_vItems;
+	QList<CImageList*>			m_vImageList;
 };

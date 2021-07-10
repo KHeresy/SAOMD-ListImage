@@ -1,5 +1,7 @@
 # 更新紀錄 (Change log)
 
+- V0.4 - 2021/07/
+  - 加入清除功能 (Add clear)
 - V0.3 - 2021/07/08
   - 儲存相關設定 (Save settings)
   - 更新檢查 (Update checker)
