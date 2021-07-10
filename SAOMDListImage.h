@@ -28,6 +28,7 @@ private slots:
 	void slotLoad();
 	void slotClear();
 	void slotSave();
+	void slotDemoVideo();
 	void slotAbout();
 	void slotDeleteSelected();
 	void slotSelectChanged();

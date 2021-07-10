@@ -2,6 +2,7 @@
 
 - V0.5 - 2021/07/
   - 加入語系功能，目前支援繁體中文 (Add language translator, now support Traditional Chinese)
+  - 於「說明」選單加入說明影片連結 (Add demove video link in help menu)
 - V0.4 - 2021/07/10
   - 加入清除功能 (Add clear)
   - 加入選取、刪除功能 (Can select and delete items)

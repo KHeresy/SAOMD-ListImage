@@ -11,6 +11,7 @@
 #include <QMimeData>
 #include <QFuture>
 #include <QtConcurrent>
+#include <QDesktopServices>
 #pragma endregion
 
 SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
@@ -167,6 +168,11 @@ void SAOMDListImage::slotSave()
 void SAOMDListImage::slotAbout()
 {
 	m_qAbout->show();
+}
+
+void SAOMDListImage::slotDemoVideo()
+{
+	QDesktopServices::openUrl(QUrl(DEMO_VIDEO_URL));
 }
 
 void SAOMDListImage::slotSelectChanged()

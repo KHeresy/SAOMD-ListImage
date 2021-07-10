@@ -80,7 +80,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtTranslation Include="saomd-listimage_zh.ts">
+    <QtTranslation Include="saomd-listimage_zh_TW.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
   </ItemGroup>
