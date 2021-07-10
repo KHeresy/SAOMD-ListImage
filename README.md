@@ -9,6 +9,8 @@ This tool is used to combine multiple screenshot of character list in game, and 
 
 ![image](Doc/main.png)
 
+示意影片 (Demo Video)：https://youtu.be/ockk6MTUR38
+
 ## 使用環境 (Runtime Environment)
 - Windows 10 x64 2004+
 - [Microsoft Visual C++ Redistributable for Visual Studio 2019](https://aka.ms/vs/16/release/vc_redist.x64.exe)
@@ -44,7 +46,7 @@ Download page：https://github.com/KHeresy/SAOMD-ListImage/releases
    3. 調整「Column number」與「Border Size」來調整影像
    4. 確定後，點選「File」 - 「Save」儲存合併完的影像
 
-示意影片：https://www.youtube.com/watch?v=6oa6FZqhbBs
+示意影片：https://youtu.be/ockk6MTUR38
 
 ### English
 
@@ -57,7 +59,7 @@ Download page：https://github.com/KHeresy/SAOMD-ListImage/releases
    3. Adjust "Column number" and "Border Size"
    4. Click "File" - "Save" to export the combined image
 
-Demo Video：https://www.youtube.com/watch?v=6oa6FZqhbBs
+Demo Video：https://youtu.be/ockk6MTUR38
 
 ## 已知問題 (Kkown issue)
 
