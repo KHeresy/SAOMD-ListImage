@@ -29,6 +29,8 @@ private slots:
 	void slotClear();
 	void slotSave();
 	void slotAbout();
+	void slotDeleteSelected();
+	void slotSelectChanged();
 	void updateLayout();
 
 private:

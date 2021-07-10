@@ -17,8 +17,10 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
 	ui.graphicsView->setScene(new QGraphicsScene());
+	ui.graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
 	//ui.graphicsView->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
 	setAcceptDrops(true);
+	connect(ui.graphicsView->scene(), &QGraphicsScene::selectionChanged, this, &SAOMDListImage::slotSelectChanged);
 
 	setWindowTitle(windowTitle() + SQOMDLI_VER);
 
@@ -97,6 +99,7 @@ void SAOMDListImage::loadFiles(const QStringList & aFileList)
 			return new CImageList(sFile);
 		}));
 
+	auto pScene = ui.graphicsView->scene();
 	for (auto& rIL : vResult)
 	{
 		CImageList* mIL = rIL.result();
@@ -106,7 +109,13 @@ void SAOMDListImage::loadFiles(const QStringList & aFileList)
 			if (mIL->size() > 0)
 			{
 				for (const auto& qItem : mIL->m_vItems)
-					m_vItems.push_back(ui.graphicsView->scene()->addPixmap(QPixmap::fromImage(qItem)));
+				{
+					auto pSceneItem = pScene->addPixmap(QPixmap::fromImage(qItem));
+					pSceneItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+					//pSceneItem->setFlag(QGraphicsItem::ItemIsMovable, true);
+
+					m_vItems.push_back(pSceneItem);
+				}
 			}
 		}
 		else
@@ -115,7 +124,6 @@ void SAOMDListImage::loadFiles(const QStringList & aFileList)
 		}
 	}
 
-	ui.leNumber->setText(QString("%1").arg(m_vItems.size()));
 	updateLayout();
 }
 
@@ -160,10 +168,39 @@ void SAOMDListImage::slotAbout()
 {
 	m_qAbout->show();
 }
-#pragma endregion
+
+void SAOMDListImage::slotSelectChanged()
+{
+	if (ui.graphicsView->scene()->selectedItems().size() > 0)
+		ui.pbDeleteSelected->setEnabled(true);
+	else
+		ui.pbDeleteSelected->setEnabled(false);
+}
+
+void SAOMDListImage::slotDeleteSelected()
+{
+	auto pScene = ui.graphicsView->scene();
+	QList<QGraphicsItem*> vSItems = pScene->selectedItems();
+
+	for (auto pItem : vSItems)
+	{
+		for (auto pCItem : m_vItems)
+		{
+			if (pCItem == pItem)
+			{
+				pScene->removeItem(pItem);
+				m_vItems.removeOne(pCItem);
+			}
+		}
+	}
+
+	updateLayout();
+}
 
 void SAOMDListImage::updateLayout()
 {
+	ui.leNumber->setText(QString("%1").arg(m_vItems.size()));
+
 	int iCol = ui.hsColumnNum->value();
 	int iBorder = ui.hsItemBorder->value();
 	auto pScene = ui.graphicsView->scene();
@@ -190,3 +227,4 @@ void SAOMDListImage::updateLayout()
 	ui.graphicsView->fitInView(rect,Qt::KeepAspectRatio);
 	ui.leImageSize->setText(QString("%1 x %2").arg(rect.width()).arg(rect.height()));
 }
+#pragma endregion

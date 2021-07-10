@@ -55,6 +55,7 @@
     </property>
     <addaction name="actionLayout"/>
     <addaction name="actionUpdate_Checker"/>
+    <addaction name="actionItem_Control"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menuView"/>
@@ -197,6 +198,52 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2"/>
   </widget>
+  <widget class="QDockWidget" name="dockItemControl">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="windowTitle">
+    <string>Item Control</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>150</width>
+      <height>50</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>300</width>
+      <height>50</height>
+     </size>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QPushButton" name="pbDeleteSelected">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Delete Selected</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="action_Load">
    <property name="text">
     <string>&amp;Load</string>
@@ -236,6 +283,14 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionItem_Control">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Item Control</string>
    </property>
   </action>
  </widget>
@@ -420,6 +475,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pbDeleteSelected</sender>
+   <signal>clicked()</signal>
+   <receiver>SAOMDListImageClass</receiver>
+   <slot>slotDeleteSelected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1048</x>
+     <y>838</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionItem_Control</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>dockItemControl</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1048</x>
+     <y>827</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dockItemControl</sender>
+   <signal>visibilityChanged(bool)</signal>
+   <receiver>actionItem_Control</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1048</x>
+     <y>827</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotLoad()</slot>
@@ -427,5 +530,6 @@
   <slot>updateLayout()</slot>
   <slot>slotAbout()</slot>
   <slot>slotClear()</slot>
+  <slot>slotDeleteSelected()</slot>
  </slots>
 </ui>
