@@ -35,6 +35,9 @@ private slots:
 	void slotDeleteSelected();
 	void slotSelectChanged();
 	void updateLayout();
+	void slotZoom(int);
+	void slotModeChanged(CScaleControlView::EScaleMode);
+	void slotSclaeChanged(float);
 
 private:
 	Ui::SAOMDListImageClass	ui;

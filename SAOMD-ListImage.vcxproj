@@ -100,10 +100,16 @@
     <QtUic Include="QUpdateCheck.ui" />
     <QtUic Include="SAOMDListImage.ui" />
     <QtMoc Include="SAOMDListImage.h" />
+    <ClCompile Include="CScaleControlView.cpp" />
     <ClCompile Include="ImageList.cpp" />
     <ClCompile Include="QAbout.cpp" />
     <ClCompile Include="QUpdateCheck.cpp" />
-    <ClCompile Include="SAOMDListImage.cpp" />
+    <ClCompile Include="SAOMDListImage.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +123,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="CScaleControlView.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="ImageList.h" />
     <QtMoc Include="QUpdateCheck.h" />

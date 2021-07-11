@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="SAOMDListImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -16,6 +13,12 @@
     <ClCompile Include="ImageList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SAOMDListImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CScaleControlView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SAOMDListImage.h">
@@ -25,6 +28,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="QUpdateCheck.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CScaleControlView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

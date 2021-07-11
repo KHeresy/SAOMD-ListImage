@@ -23,7 +23,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <widget class="CScaleControlView" name="graphicsView"/>
     </item>
    </layout>
   </widget>
@@ -59,9 +59,25 @@
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionLayout"/>
+    <widget class="QMenu" name="menuZoom">
+     <property name="title">
+      <string>Zoom</string>
+     </property>
+     <addaction name="actionFit_Image"/>
+     <addaction name="actionFit_Width"/>
+     <addaction name="actionFit_Height"/>
+     <addaction name="separator"/>
+     <addaction name="actionZoomFull"/>
+     <addaction name="actionZoomHalf"/>
+     <addaction name="actionZoomCustom"/>
+     <addaction name="separator"/>
+     <addaction name="actionZoom_In"/>
+     <addaction name="actionZoom_Out"/>
+    </widget>
+    <addaction name="menuZoom"/>
+    <addaction name="separator"/>
+    <addaction name="actionScene"/>
     <addaction name="actionUpdate_Checker"/>
-    <addaction name="actionItem_Control"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menuView"/>
@@ -76,7 +92,7 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QDockWidget" name="dockLayout">
+  <widget class="QDockWidget" name="dockScene">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
      <horstretch>0</horstretch>
@@ -86,11 +102,11 @@
    <property name="maximumSize">
     <size>
      <width>524287</width>
-     <height>200</height>
+     <height>335</height>
     </size>
    </property>
    <property name="windowTitle">
-    <string>Layout</string>
+    <string>Scene</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
@@ -98,58 +114,54 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QFrame" name="frame">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string>View</string>
        </property>
-       <property name="minimumSize">
-        <size>
-         <width>250</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="3" column="1">
-         <widget class="QSlider" name="hsItemBorder">
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Zoom</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSlider" name="hsZoom">
           <property name="maximum">
-           <number>50</number>
+           <number>200</number>
+          </property>
+          <property name="sliderPosition">
+           <number>100</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksAbove</enum>
+          </property>
+          <property name="tickInterval">
+           <number>10</number>
+          </property>
          </widget>
         </item>
-        <item row="0" column="0">
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Layout</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string>Number</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Column number</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="leNumber">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
+        <item row="3" column="1">
          <widget class="QSlider" name="hsColumnNum">
           <property name="minimum">
            <number>1</number>
@@ -163,83 +175,71 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Border Size</string>
+          <property name="tickPosition">
+           <enum>QSlider::TicksAbove</enum>
+          </property>
+          <property name="tickInterval">
+           <number>5</number>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="4" column="1">
          <widget class="QLineEdit" name="leArraySize">
           <property name="readOnly">
            <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="5" column="1">
+         <widget class="QSlider" name="hsItemBorder">
+          <property name="maximum">
+           <number>50</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="leNumber">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Border Size</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Column number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
            <string>Image Size</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="6" column="1">
          <widget class="QLineEdit" name="leImageSize"/>
         </item>
        </layout>
       </widget>
      </item>
-    </layout>
-   </widget>
-  </widget>
-  <widget class="QDockWidget" name="dockUpdateer">
-   <property name="windowTitle">
-    <string>Update Checker</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>2</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents_2"/>
-  </widget>
-  <widget class="QDockWidget" name="dockItemControl">
-   <property name="maximumSize">
-    <size>
-     <width>524287</width>
-     <height>90</height>
-    </size>
-   </property>
-   <property name="windowTitle">
-    <string>Item Control</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>2</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents_4">
-    <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QFrame" name="frame_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string>Item Control</string>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QPushButton" name="pbDeleteSelected">
           <property name="enabled">
@@ -260,6 +260,9 @@
           <property name="text">
            <string>Delete Selected</string>
           </property>
+          <property name="shortcut">
+           <string>Ctrl+S</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -267,6 +270,15 @@
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockUpdateer">
+   <property name="windowTitle">
+    <string>Update Checker</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2"/>
   </widget>
   <action name="action_Load">
    <property name="text">
@@ -283,12 +295,12 @@
     <string>About</string>
    </property>
   </action>
-  <action name="actionLayout">
+  <action name="actionScene">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Layout</string>
+    <string>Scene</string>
    </property>
   </action>
   <action name="actionUpdate_Checker">
@@ -327,8 +339,103 @@
     <string>How to use</string>
    </property>
   </action>
+  <action name="actionFit_Image">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fit Image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
+  </action>
+  <action name="actionFit_Width">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fit Width</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
+   </property>
+  </action>
+  <action name="actionFit_Height">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fit Height</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+3</string>
+   </property>
+  </action>
+  <action name="actionZoomFull">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>100%</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="actionZoomHalf">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>50%</string>
+   </property>
+  </action>
+  <action name="actionZoomCustom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Customize</string>
+   </property>
+  </action>
+  <action name="actionZoom_In">
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl++</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CScaleControlView</class>
+   <extends>QGraphicsView</extends>
+   <header>CScaleControlView.h</header>
+   <slots>
+    <signal>signalScaleChanged(float)</signal>
+    <signal>signalModeChanged(CScaleControlView::EScaleMode)</signal>
+    <slot>slotZoomFitImage()</slot>
+    <slot>slotZoomFitWidth()</slot>
+    <slot>slotZoomFitHeight()</slot>
+    <slot>slotZoomScaleFull()</slot>
+    <slot>slotZoomScaleHalf()</slot>
+    <slot>slotZoomIn()</slot>
+    <slot>slotZoomOut()</slot>
+    <slot>setScale(float)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="SAOMDListImage.qrc"/>
  </resources>
@@ -414,9 +521,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionLayout</sender>
+   <sender>actionScene</sender>
    <signal>triggered(bool)</signal>
-   <receiver>dockLayout</receiver>
+   <receiver>dockScene</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -430,9 +537,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>dockLayout</sender>
+   <sender>dockScene</sender>
    <signal>visibilityChanged(bool)</signal>
-   <receiver>actionLayout</receiver>
+   <receiver>actionScene</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -542,38 +649,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionItem_Control</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>dockItemControl</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1048</x>
-     <y>817</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dockItemControl</sender>
-   <signal>visibilityChanged(bool)</signal>
-   <receiver>actionItem_Control</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1048</x>
-     <y>666</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionHow_to_use</sender>
    <signal>triggered()</signal>
    <receiver>SAOMDListImageClass</receiver>
@@ -582,6 +657,166 @@
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoomFull</sender>
+   <signal>triggered()</signal>
+   <receiver>graphicsView</receiver>
+   <slot>slotZoomScaleFull()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>446</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionFit_Width</sender>
+   <signal>triggered()</signal>
+   <receiver>graphicsView</receiver>
+   <slot>slotZoomFitWidth()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>446</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionFit_Height</sender>
+   <signal>triggered()</signal>
+   <receiver>graphicsView</receiver>
+   <slot>slotZoomFitHeight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>446</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionFit_Image</sender>
+   <signal>triggered()</signal>
+   <receiver>graphicsView</receiver>
+   <slot>slotZoomFitImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>446</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoomHalf</sender>
+   <signal>triggered()</signal>
+   <receiver>graphicsView</receiver>
+   <slot>slotZoomScaleHalf()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>446</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoom_In</sender>
+   <signal>triggered()</signal>
+   <receiver>graphicsView</receiver>
+   <slot>slotZoomIn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>446</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoom_Out</sender>
+   <signal>triggered()</signal>
+   <receiver>graphicsView</receiver>
+   <slot>slotZoomOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>446</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>hsZoom</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>SAOMDListImageClass</receiver>
+   <slot>slotZoom(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1068</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>graphicsView</sender>
+   <signal>signalModeChanged(CScaleControlView::EScaleMode)</signal>
+   <receiver>SAOMDListImageClass</receiver>
+   <slot>slotModeChanged(CScaleControlView::EScaleMode)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>454</x>
+     <y>446</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>graphicsView</sender>
+   <signal>signalScaleChanged(float)</signal>
+   <receiver>SAOMDListImageClass</receiver>
+   <slot>slotSclaeChanged(float)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>454</x>
+     <y>446</y>
     </hint>
     <hint type="destinationlabel">
      <x>591</x>
@@ -599,5 +834,8 @@
   <slot>slotDeleteSelected()</slot>
   <slot>slotDemoVideo()</slot>
   <slot>slotHowToUse()</slot>
+  <slot>slotZoom(int)</slot>
+  <slot>slotModeChanged(CScaleControlView::EScaleMode)</slot>
+  <slot>slotSclaeChanged(float)</slot>
  </slots>
 </ui>

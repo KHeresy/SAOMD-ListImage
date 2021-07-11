@@ -43,7 +43,7 @@ Download page：https://github.com/KHeresy/SAOMD-ListImage/releases
 3. 執行這個程式
    1. 點選「File」－「Load」、並點選需要的截圖（多選）
    2. 等待處理完成，將偵測到的結果顯示於程式中
-   3. 如果有不需要的項目，請使用滑鼠點選、或是圈選項目，然後透過「Item Control」的「Delete Selected」來刪除
+   3. 如果有不需要的項目，請使用滑鼠點選、或是圈選項目，然後點選「Delete Selected」來刪除
    4. 調整「Column number」與「Border Size」來調整影像
    5. 確定後，點選「File」 - 「Save」儲存合併完的影像
 
@@ -57,7 +57,7 @@ Download page：https://github.com/KHeresy/SAOMD-ListImage/releases
 3. Run this tool
    1. Click "File" - "Load", and select the screenshot. Can select multiple files.
    2. Wait process finish, the detected character will show in application
-   3. If there are items that not wanted, select the items by click or dragging a selection range, then delete by the button "Delete Selected" in "Item Control"
+   3. If there are items that not wanted, select the items by click or dragging a selection range, then delete by the button "Delete Selected"
    4. Adjust "Column number" and "Border Size"
    5. Click "File" - "Save" to export the combined image
 
@@ -73,7 +73,7 @@ Demo Video：https://youtu.be/ockk6MTUR38
 ## 開發環境 (Develop Environment)
 - [Microsoft Visual Studio 2019](https://visualstudio.microsoft.com/zh-hant/vs/)
 - [Qt VS Tools for Visual Studio 2019](https://marketplace.visualstudio.com/items?itemName=TheQtCompany.QtVisualStudioTools2019)
-- [Qt 6.1.1](https://www.qt.io/)
+- [Qt 6.1.2](https://www.qt.io/)
 - Required [OpenSSL Binary](https://kb.firedaemon.com/support/solutions/articles/4000121705)
 
 ## 個人網站 (My Website)

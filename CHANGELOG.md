@@ -1,9 +1,10 @@
 # 更新紀錄 (Change log)
 
 - V0.5 - 2021/07/
-  - 加入語系功能，目前支援繁體中文 (Add language translator, now support Traditional Chinese)
+  - 加入檢視的場景縮放功能 (Add scene zoom/scaling)
   - 於「說明」選單加入說明影片、以及如何使用的連結 (Add demo video and ""how to use" link in help menu)
-  - 修正 Item Control 的狀態儲存問題 (Fix state save issue of Item Control)
+  - 將 Item Control 與 Layout 合併為 Scene (Merge Item Control and Layout into Scene)
+  - 加入語系功能，目前支援繁體中文 (Add language translator, now support Traditional Chinese)
 - V0.4 - 2021/07/10
   - 加入清除功能 (Add clear)
   - 加入選取、刪除功能 (Can select and delete items)

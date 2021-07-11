@@ -12,6 +12,7 @@
 #include <QFuture>
 #include <QtConcurrent>
 #include <QDesktopServices>
+#include <QActionGroup>
 #pragma endregion
 
 SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
@@ -31,6 +32,16 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 	m_qAbout = new QAbout(this);
 	m_qAbout->setModal(true);
 
+	#pragma region Group zoom action
+	QActionGroup* pGroup = new QActionGroup(this);
+	pGroup->addAction(ui.actionFit_Image);
+	pGroup->addAction(ui.actionFit_Height);
+	pGroup->addAction(ui.actionFit_Width);
+	pGroup->addAction(ui.actionZoomFull);
+	pGroup->addAction(ui.actionZoomHalf);
+	pGroup->addAction(ui.actionZoomCustom);
+	#pragma endregion
+
 	#pragma region Read setting
 	QSettings qSettings = getSettings();
 	// Windows
@@ -46,6 +57,12 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 	m_qUpdateCheck->ui.cbAutoCheck->setChecked(bUpdate);
 	if (bUpdate)
 		m_qUpdateCheck->slotCheckUpdate();
+
+	// zoom
+	CScaleControlView::EScaleMode eZoomMode = (CScaleControlView::EScaleMode)qSettings.value("zoom/mode", (int)(CScaleControlView::EScaleMode::FitImage)).toInt();
+	float fScale = qSettings.value("zoom/scale", 1.0f).toFloat();
+	ui.graphicsView->setScale(fScale);
+	ui.graphicsView->setScaleMode(eZoomMode);
 	#pragma endregion
 }
 
@@ -62,6 +79,10 @@ void SAOMDListImage::closeEvent(QCloseEvent* pEvent)
 {
 	#pragma region Save setting
 	QSettings qSettings = getSettings();
+
+	// Version
+	qSettings.setValue("AppVer", SQOMDLI_VER);
+
 	// Windows
 	qSettings.setValue("ui/geometry", saveGeometry());
 	qSettings.setValue("ui/windowState", saveState());
@@ -72,6 +93,10 @@ void SAOMDListImage::closeEvent(QCloseEvent* pEvent)
 
 	// Update Checker
 	qSettings.setValue("updater/auto", m_qUpdateCheck->ui.cbAutoCheck->isChecked());
+
+	// zoom
+	qSettings.setValue("zoom/mode", (int)ui.graphicsView->getMode());
+	qSettings.setValue("zoom/scale", ui.graphicsView->getScale());
 	#pragma endregion
 
 	slotClear();
@@ -171,6 +196,55 @@ void SAOMDListImage::slotSave()
 	}
 }
 
+void SAOMDListImage::slotZoom(int iVal)
+{
+	ui.graphicsView->setScaleMode(CScaleControlView::EScaleMode::Custom);
+	ui.graphicsView->setScale(0.01f * iVal);
+}
+
+void SAOMDListImage::slotModeChanged(CScaleControlView::EScaleMode eMode)
+{
+	using EMode = CScaleControlView::EScaleMode;
+
+	switch (eMode)
+	{
+	case EMode::FitImage:
+		ui.actionFit_Image->setChecked(true);
+		break;
+
+	case EMode::FitWidth:
+		ui.actionFit_Width->setChecked(true);
+		break;
+
+	case EMode::FitHeight:
+		ui.actionFit_Height->setChecked(true);
+		break;
+
+	case EMode::Full:
+		ui.actionZoomFull->setChecked(true);
+		break;
+
+	case EMode::Half:
+		ui.actionZoomHalf->setChecked(true);
+		break;
+
+	case EMode::Custom:
+		ui.actionZoomCustom->setChecked(true);
+		break;
+	}
+}
+
+void SAOMDListImage::slotSclaeChanged(float fScale)
+{
+	int iScale = 100 * fScale;
+	if (ui.hsZoom->value() != iScale)
+	{
+		ui.hsZoom->blockSignals(true);
+		ui.hsZoom->setValue(iScale);
+		ui.hsZoom->blockSignals(false);
+	}
+}
+
 void SAOMDListImage::slotAbout()
 {
 	m_qAbout->show();
@@ -241,7 +315,8 @@ void SAOMDListImage::updateLayout()
 
 	pScene->setSceneRect(pScene->itemsBoundingRect());
 	auto rect = pScene->sceneRect();
-	ui.graphicsView->fitInView(rect,Qt::KeepAspectRatio);
 	ui.leImageSize->setText(QString("%1 x %2").arg(rect.width()).arg(rect.height()));
+
+	ui.graphicsView->UpdateViewScale();
 }
 #pragma endregion
