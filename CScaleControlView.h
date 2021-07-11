@@ -62,12 +62,14 @@ public slots:
 
 	void slotZoomIn()
 	{
-
+		setScaleMode(EScaleMode::Custom);
+		setScale(m_fScale + 0.1f);
 	}
 
 	void slotZoomOut()
 	{
-
+		setScaleMode(EScaleMode::Custom);
+		setScale(m_fScale - 0.1f);
 	}
 
 	void setScaleMode(CScaleControlView::EScaleMode eMode);

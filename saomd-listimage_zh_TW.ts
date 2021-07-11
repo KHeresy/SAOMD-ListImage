@@ -101,12 +101,12 @@
 <context>
     <name>SAOMDListImage</name>
     <message>
-        <location filename="SAOMDListImage.cpp" line="140"/>
+        <location filename="SAOMDListImage.cpp" line="165"/>
         <source>Select one or more files</source>
         <translation>選取一個或多個檔案</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.cpp" line="162"/>
+        <location filename="SAOMDListImage.cpp" line="187"/>
         <source>Input the file to save</source>
         <translation>輸入檔案以儲存</translation>
     </message>
@@ -131,89 +131,171 @@
     </message>
     <message>
         <location filename="SAOMDListImage.ui" line="60"/>
+        <location filename="SAOMDListImage.ui" line="119"/>
         <source>View</source>
         <translation>檢視</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="92"/>
-        <location filename="SAOMDListImage.ui" line="242"/>
+        <location filename="SAOMDListImage.ui" line="64"/>
+        <location filename="SAOMDListImage.ui" line="125"/>
+        <source>Zoom</source>
+        <translation>縮放</translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="109"/>
+        <location filename="SAOMDListImage.ui" line="303"/>
         <source>Scene</source>
         <translation>場景</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="102"/>
+        <location filename="SAOMDListImage.ui" line="154"/>
         <source>Layout</source>
         <translation>布局</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="108"/>
+        <location filename="SAOMDListImage.ui" line="160"/>
         <source>Number</source>
         <translation>項目數量</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="155"/>
+        <location filename="SAOMDListImage.ui" line="213"/>
         <source>Border Size</source>
         <translation>邊框大小</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="169"/>
+        <location filename="SAOMDListImage.ui" line="227"/>
         <source>Image Size</source>
         <translation>影像大小</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="215"/>
-        <location filename="SAOMDListImage.ui" line="250"/>
+        <location filename="SAOMDListImage.ui" line="264"/>
+        <source>Ctrl+S</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="276"/>
+        <location filename="SAOMDListImage.ui" line="311"/>
         <source>Update Checker</source>
         <translation>更新檢查</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="182"/>
-        <location filename="SAOMDListImage.ui" line="268"/>
+        <location filename="SAOMDListImage.ui" line="347"/>
+        <source>Fit Image</source>
+        <translation>適合影像</translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="350"/>
+        <source>Ctrl+1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="358"/>
+        <source>Fit Width</source>
+        <translation>適合寬度</translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="361"/>
+        <source>Ctrl+2</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="369"/>
+        <source>Fit Height</source>
+        <translation>適合高度</translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="372"/>
+        <source>Ctrl+3</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="380"/>
+        <source>100%</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="383"/>
+        <source>Ctrl+0</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="391"/>
+        <source>50%</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="399"/>
+        <source>Customize</source>
+        <translation>自訂縮放</translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="404"/>
+        <source>Zoom In</source>
+        <translation>放大</translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="407"/>
+        <source>Ctrl++</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="412"/>
+        <source>Zoom Out</source>
+        <translation>縮小</translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="415"/>
+        <source>Ctrl+-</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SAOMDListImage.ui" line="240"/>
+        <location filename="SAOMDListImage.ui" line="329"/>
         <source>Item Control</source>
         <translation>項目控制</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="203"/>
+        <location filename="SAOMDListImage.ui" line="261"/>
         <source>Delete Selected</source>
         <translation>刪除已選取的項目</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="229"/>
+        <location filename="SAOMDListImage.ui" line="290"/>
         <source>&amp;Save</source>
         <translation>儲存（&amp;S）</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="234"/>
+        <location filename="SAOMDListImage.ui" line="295"/>
         <source>About</source>
         <translation>關於</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="255"/>
+        <location filename="SAOMDListImage.ui" line="316"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="260"/>
+        <location filename="SAOMDListImage.ui" line="321"/>
         <source>Exit</source>
         <translation>離開</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="273"/>
+        <location filename="SAOMDListImage.ui" line="334"/>
         <source>Demo Video</source>
         <translation>展示影片</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="278"/>
+        <location filename="SAOMDListImage.ui" line="339"/>
         <source>How to use</source>
         <translation>如何使用</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="162"/>
+        <location filename="SAOMDListImage.ui" line="220"/>
         <source>Column number</source>
         <translation>每列的數量</translation>
     </message>
     <message>
-        <location filename="SAOMDListImage.ui" line="224"/>
+        <location filename="SAOMDListImage.ui" line="285"/>
         <source>&amp;Load</source>
         <oldsource>讀取（&amp;L）</oldsource>
         <translation>讀取（&amp;L）</translation>

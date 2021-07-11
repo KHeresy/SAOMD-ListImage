@@ -67,7 +67,7 @@ void CScaleControlView::setScaleMode(EScaleMode eMode)
 
 void CScaleControlView::setScale(float fScale)
 {
-	if (fScale != m_fScale)
+	if (fScale != m_fScale && fScale > 0)
 	{
 		m_fScale = fScale;
 		if (m_eMode == EScaleMode::Custom)
