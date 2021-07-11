@@ -36,6 +36,7 @@ private slots:
 	void slotSelectChanged();
 	void updateLayout();
 	void slotZoom(int);
+	void slotColumnNumChanged(int);
 	void slotModeChanged(CScaleControlView::EScaleMode);
 	void slotSclaeChanged(float);
 

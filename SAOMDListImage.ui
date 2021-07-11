@@ -128,6 +128,9 @@
         </item>
         <item row="0" column="1">
          <widget class="QSlider" name="hsZoom">
+          <property name="minimum">
+           <number>1</number>
+          </property>
           <property name="maximum">
            <number>200</number>
           </property>
@@ -474,9 +477,9 @@
   </connection>
   <connection>
    <sender>hsColumnNum</sender>
-   <signal>valueChanged(int)</signal>
+   <signal>sliderMoved(int)</signal>
    <receiver>SAOMDListImageClass</receiver>
-   <slot>updateLayout()</slot>
+   <slot>slotColumnNumChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1163</x>
@@ -837,5 +840,6 @@
   <slot>slotZoom(int)</slot>
   <slot>slotModeChanged(CScaleControlView::EScaleMode)</slot>
   <slot>slotSclaeChanged(float)</slot>
+  <slot>slotColumnNumChanged(int)</slot>
  </slots>
 </ui>

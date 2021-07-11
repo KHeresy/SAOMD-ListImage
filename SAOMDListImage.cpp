@@ -13,6 +13,7 @@
 #include <QtConcurrent>
 #include <QDesktopServices>
 #include <QActionGroup>
+#include <QToolTip>
 #pragma endregion
 
 SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
@@ -200,6 +201,9 @@ void SAOMDListImage::slotZoom(int iVal)
 {
 	ui.graphicsView->setScaleMode(CScaleControlView::EScaleMode::Custom);
 	ui.graphicsView->setScale(0.01f * iVal);
+
+	ui.hsZoom->setToolTip(QString("%1\%").arg(iVal));
+	QToolTip::showText(QCursor::pos(), QString("%1\%").arg(iVal), nullptr);
 }
 
 void SAOMDListImage::slotModeChanged(CScaleControlView::EScaleMode eMode)
@@ -240,6 +244,7 @@ void SAOMDListImage::slotSclaeChanged(float fScale)
 	if (ui.hsZoom->value() != iScale)
 	{
 		ui.hsZoom->blockSignals(true);
+		ui.hsZoom->setToolTip(QString("%1\%").arg(iScale));
 		ui.hsZoom->setValue(iScale);
 		ui.hsZoom->blockSignals(false);
 	}
@@ -284,6 +289,14 @@ void SAOMDListImage::slotDeleteSelected()
 			}
 		}
 	}
+
+	updateLayout();
+}
+
+void SAOMDListImage::slotColumnNumChanged(int iVal)
+{
+	ui.hsColumnNum->setToolTip(QString("%1").arg(iVal + 1));
+	QToolTip::showText(QCursor::pos(), QString("%1").arg(iVal + 1), nullptr);
 
 	updateLayout();
 }
