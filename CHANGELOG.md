@@ -1,6 +1,6 @@
 # 更新紀錄 (Change log)
 
-- V0.5 - 2021/07/
+- V0.5 - 2021/07/11
   - 加入檢視的場景縮放功能 (Add scene zoom/scaling)
   - 於「說明」選單加入說明影片、以及如何使用的連結 (Add demo video and ""how to use" link in help menu)
   - 將 Item Control 與 Layout 合併為 Scene (Merge Item Control and Layout into Scene)
