@@ -134,9 +134,9 @@ void QUpdateCheck::requestFinished(QNetworkReply* qReply)
 				//QString sDate = qRelease["created_at"].toString().mid(0,10);
 				QString sContent = qRelease["body"].toString();
 
-				if (CVersion(SQOMDLI_VER) < CVersion(sTagName))
+				if (!sTagName.isEmpty())
 				{
-					if (!sTagName.isEmpty())
+					if (CVersion(SQOMDLI_VER) < CVersion(sTagName))
 					{
 						QJsonArray qAssets = qRelease["assets"].toArray();
 						if (qAssets.size() == 1)
@@ -150,12 +150,12 @@ void QUpdateCheck::requestFinished(QNetworkReply* qReply)
 							return;
 						}
 					}
-				}
-				else
-				{
-					ui.labelResult->setText(tr("You have latest version"));
-					ui.pbCheck->setText(tr("Check Update"));
-					return;
+					else
+					{
+						ui.labelResult->setText(tr("You have latest version"));
+						ui.pbCheck->setText(tr("Check Update"));
+						return;
+					}
 				}
 			}
 		}
