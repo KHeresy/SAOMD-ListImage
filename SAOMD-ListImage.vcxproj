@@ -97,12 +97,14 @@
   <ItemGroup>
     <QtRcc Include="SAOMDListImage.qrc" />
     <QtUic Include="QAbout.ui" />
+    <QtUic Include="QAutoMode.ui" />
     <QtUic Include="QUpdateCheck.ui" />
     <QtUic Include="SAOMDListImage.ui" />
     <QtMoc Include="SAOMDListImage.h" />
     <ClCompile Include="CScaleControlView.cpp" />
     <ClCompile Include="ImageList.cpp" />
     <ClCompile Include="QAbout.cpp" />
+    <ClCompile Include="QAutoMode.cpp" />
     <ClCompile Include="QUpdateCheck.cpp" />
     <ClCompile Include="SAOMDListImage.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
@@ -123,6 +125,8 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="QAdbController.h" />
+    <QtMoc Include="QAutoMode.h" />
     <QtMoc Include="CScaleControlView.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="ImageList.h" />

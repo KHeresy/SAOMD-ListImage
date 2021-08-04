@@ -39,6 +39,7 @@ private slots:
 	void slotColumnNumChanged(int);
 	void slotModeChanged(CScaleControlView::EScaleMode);
 	void slotSclaeChanged(float);
+	void newImageList(CImageList*);
 
 private:
 	Ui::SAOMDListImageClass	ui;

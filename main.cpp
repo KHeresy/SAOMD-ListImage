@@ -2,6 +2,8 @@
 #include <QtWidgets/QApplication>
 #include <QTranslator>
 
+#include "QAdbController.h"
+
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);

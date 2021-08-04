@@ -19,6 +19,9 @@
     <ClCompile Include="CScaleControlView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QAutoMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SAOMDListImage.h">
@@ -33,6 +36,9 @@
     <QtMoc Include="CScaleControlView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="QAutoMode.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="SAOMDListImage.qrc" />
@@ -45,6 +51,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="QUpdateCheck.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="QAutoMode.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -82,6 +91,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImageList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QAdbController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

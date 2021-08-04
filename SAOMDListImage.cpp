@@ -1,5 +1,6 @@
-#include "SAOMDListImage.h"
 #include "Define.h"
+#include "SAOMDListImage.h"
+#include "QAutoMode.h"
 
 #pragma region Qt Headers
 #include <QDialog>
@@ -29,6 +30,11 @@ SAOMDListImage::SAOMDListImage(QWidget *parent) : QMainWindow(parent)
 
 	m_qUpdateCheck = new QUpdateCheck();
 	ui.dockUpdateer->setWidget(m_qUpdateCheck);
+
+	QAutoMode* pAM = new QAutoMode();
+	ui.dockAutoMode->setWidget(pAM);
+	connect(pAM, &QAutoMode::newImage, this, &SAOMDListImage::newImageList);
+	connect(pAM, &QAutoMode::finished, this, &SAOMDListImage::updateLayout);
 
 	m_qAbout = new QAbout(this);
 	m_qAbout->setModal(true);
@@ -132,29 +138,10 @@ void SAOMDListImage::loadFiles(const QStringList & aFileList)
 			return new CImageList(sFile);
 		}));
 
-	auto pScene = ui.graphicsView->scene();
+	
 	for (auto& rIL : vResult)
 	{
-		CImageList* mIL = rIL.result();
-		m_vImageList.push_back(mIL);
-		if (mIL->isVaild())
-		{
-			if (mIL->size() > 0)
-			{
-				for (const auto& qItem : mIL->m_vItems)
-				{
-					auto pSceneItem = pScene->addPixmap(QPixmap::fromImage(qItem));
-					pSceneItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
-					//pSceneItem->setFlag(QGraphicsItem::ItemIsMovable, true);
-
-					m_vItems.push_back(pSceneItem);
-				}
-			}
-		}
-		else
-		{
-
-		}
+		emit newImageList(rIL.result());
 	}
 
 	updateLayout();
@@ -202,8 +189,8 @@ void SAOMDListImage::slotZoom(int iVal)
 	ui.graphicsView->setScaleMode(CScaleControlView::EScaleMode::Custom);
 	ui.graphicsView->setScale(0.01f * iVal);
 
-	ui.hsZoom->setToolTip(QString("%1\%").arg(iVal));
-	QToolTip::showText(QCursor::pos(), QString("%1\%").arg(iVal), nullptr);
+	ui.hsZoom->setToolTip(QString("%1 %").arg(iVal));
+	QToolTip::showText(QCursor::pos(), QString("%1 %").arg(iVal), nullptr);
 }
 
 void SAOMDListImage::slotModeChanged(CScaleControlView::EScaleMode eMode)
@@ -244,7 +231,7 @@ void SAOMDListImage::slotSclaeChanged(float fScale)
 	if (ui.hsZoom->value() != iScale)
 	{
 		ui.hsZoom->blockSignals(true);
-		ui.hsZoom->setToolTip(QString("%1\%").arg(iScale));
+		ui.hsZoom->setToolTip(QString("%1 %").arg(iScale));
 		ui.hsZoom->setValue(iScale);
 		ui.hsZoom->blockSignals(false);
 	}
@@ -331,5 +318,29 @@ void SAOMDListImage::updateLayout()
 	ui.leImageSize->setText(QString("%1 x %2").arg(rect.width()).arg(rect.height()));
 
 	ui.graphicsView->UpdateViewScale();
+}
+
+void SAOMDListImage::newImageList(CImageList* pIL)
+{
+	m_vImageList.push_back(pIL);
+	if (pIL->isVaild())
+	{
+		if (pIL->size() > 0)
+		{
+			auto pScene = ui.graphicsView->scene();
+			for (const auto& qItem : pIL->m_vItems)
+			{
+				auto pSceneItem = pScene->addPixmap(QPixmap::fromImage(qItem));
+				pSceneItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+				//pSceneItem->setFlag(QGraphicsItem::ItemIsMovable, true);
+
+				m_vItems.push_back(pSceneItem);
+			}
+		}
+	}
+	else
+	{
+
+	}
 }
 #pragma endregion
