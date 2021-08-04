@@ -1,7 +1,8 @@
 # 更新紀錄 (Change log)
 
-- V0.6 - 2021/07/
+- V0.6 - 2021/08/04
   - 部分數值拉桿加入及時數字顯示 (Add realtime value display for some value slider)
+  - 調整偵測條件、避免腳色偵測失敗 (Extend detection condition, avoid character missing)
 - V0.5 - 2021/07/11
   - 加入檢視的場景縮放功能 (Add scene zoom/scaling)
   - 於「說明」選單加入說明影片、以及如何使用的連結 (Add demo video and ""how to use" link in help menu)
