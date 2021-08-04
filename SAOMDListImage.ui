@@ -477,7 +477,7 @@
   </connection>
   <connection>
    <sender>hsColumnNum</sender>
-   <signal>sliderMoved(int)</signal>
+   <signal>valueChanged(int)</signal>
    <receiver>SAOMDListImageClass</receiver>
    <slot>slotColumnNumChanged(int)</slot>
    <hints>
