@@ -180,7 +180,7 @@ CImageList::CImageList(const QString& sFilename)
 							if (rowBox.width() > 50)//&& rowBox.width() < qImage.width() / 5)
 							{
 								float fRatio = (float)rowBox.height() / rowBox.width();
-								if (fRatio > 1.1f && fRatio < 1.2f)
+								if (fRatio > 1.0f && fRatio < 1.2f)
 								{
 									m_vRects.push_back(rowBox);
 									m_vItems.push_back(getItem(rowBox));
