@@ -328,14 +328,15 @@ void SAOMDListImage::newImageList(CImageList* pIL)
 		if (pIL->size() > 0)
 		{
 			auto pScene = ui.graphicsView->scene();
-			for (const auto& qItem : pIL->m_vItems)
-			{
-				auto pSceneItem = pScene->addPixmap(QPixmap::fromImage(qItem));
-				pSceneItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
-				//pSceneItem->setFlag(QGraphicsItem::ItemIsMovable, true);
+			for (const auto& row : pIL->m_vItems)
+				for (const auto& qItem : row)
+				{
+					auto pSceneItem = pScene->addPixmap(QPixmap::fromImage(qItem));
+					pSceneItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+					//pSceneItem->setFlag(QGraphicsItem::ItemIsMovable, true);
 
-				m_vItems.push_back(pSceneItem);
-			}
+					m_vItems.push_back(pSceneItem);
+				}
 		}
 	}
 	else

@@ -170,6 +170,7 @@ CImageList::CImageList(const QString& sFilename)
 
 				if (rowRect.height() > 50)
 				{
+					QList<QRect> rectRow;
 					while (true)
 					{
 						QRect rowBox = detectColumn(m_qImage, m_BackgroundColor, rowRect);
@@ -181,14 +182,13 @@ CImageList::CImageList(const QString& sFilename)
 							{
 								float fRatio = (float)rowBox.height() / rowBox.width();
 								if (fRatio > 1.0f && fRatio < 1.2f)
-								{
-									m_vRects.push_back(rowBox);
-									m_vItems.push_back(getItem(rowBox));
-								}
+									rectRow.push_back(rowBox);
 							}
 						}
 						else
 						{
+							if (rectRow.size() != 0)
+								m_vRects.push_back(rectRow);
 							break;
 						}
 					}
@@ -198,6 +198,14 @@ CImageList::CImageList(const QString& sFilename)
 			{
 				break;
 			}
+		}
+
+		for (auto& row : m_vRects)
+		{
+			QList<QImage> imageRow;
+			for (auto& box : row)
+				imageRow.push_back(getItem(box));
+			m_vItems.push_back(imageRow);
 		}
 	}
 }

@@ -46,12 +46,40 @@ void QAutoMode::startCapture()
 		qDir.mkpath(sPath);
 
 	int iIdx = 0;
-	QString sFileName = QString(sPath + "\\%1.png").arg(iIdx);
-	mAdb.saveScreen(sFileName);
-	CImageList* pImageList = new CImageList(sFileName);
+	int	iCurrentNum = 0;
+	while(iCurrentNum < iTotalNum)
+	{
+		++iIdx;
+		QString sFileName = QString(sPath + "\\%1.png").arg(iIdx);
+		mAdb.saveScreen(sFileName);
+		CImageList* pImageList = new CImageList(sFileName);
 
-	auto c = pImageList->size();
-	emit newImage(pImageList);
+		bool bForceStop = false;
+		if (pImageList->isFullRow())
+		{
+			QPoint p1 = (*pImageList->m_vRects.begin())[0].center();
+			QPoint p2 = (*pImageList->m_vRects.rbegin())[0].center();
+			if (p1 == p2)
+			{
+				bForceStop = true;
+			}
+			else
+			{
+				mAdb.swipe(p2, p1, 1000);
+			}
+		}
+		else
+		{
+			bForceStop = true;
+		}
+		auto iNumDetected = pImageList->size();
+		iCurrentNum += iNumDetected;
+
+		emit newImage(pImageList);
+
+		if (bForceStop)
+			break;
+	}
 
 	emit finished();
 }

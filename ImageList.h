@@ -6,8 +6,8 @@ class CImageList
 {
 public:
 	QImage			m_qImage;
-	QList<QRect>	m_vRects;
-	QList<QImage>	m_vItems;
+	QList<QList<QRect>>		m_vRects;
+	QList<QList<QImage>>	m_vItems;
 
 public:
 	CImageList(const QString& sFilename);
@@ -19,7 +19,19 @@ public:
 
 	int size() const
 	{
-		return m_vRects.size();
+		int iSum = 0;
+		for (auto& row : m_vRects)
+			iSum += row.size();
+		return iSum;
+	}
+
+	bool isFullRow() const
+	{
+		for (auto& row : m_vRects)
+			if (row.size() != 4)
+				return false;
+
+		return true;
 	}
 
 protected:
